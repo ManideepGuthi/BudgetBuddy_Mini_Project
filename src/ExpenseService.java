@@ -21,16 +21,104 @@ public class ExpenseService {
 
             switch (choice) {
                 case 1:
-                    addFixedExpense(user);
-                    return;
+                    showFixedExpenseMenu(user);
+                    break;
                 case 2:
-                    addDailyExpense(user);
-                    return;
+                    showDailyExpenseMenu(user);
+                    break;
                 case 3:
                     return;
                 default:
                     System.out.println("Invalid choice!");
             }
+        }
+    }
+
+    public void showFixedExpenseMenu(User user) {
+        while (true) {
+            System.out.println("\n===== MANAGE FIXED EXPENSES =====");
+            System.out.println("1. Add New Fixed Expense");
+            System.out.println("2. View Fixed Expenses");
+            System.out.println("3. Delete Fixed Expense");
+            System.out.println("4. Back");
+            System.out.print("\nPlease select an option (1-4): ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addFixedExpense(user);
+                    break;
+                case 2:
+                    viewFixedExpenses(user);
+                    break;
+                case 3:
+                    deleteFixedExpense(user);
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private void viewFixedExpenses(User user) {
+        try {
+            Connection con = DBConnection.getConnection();
+            String query = "select * from bb_fixed_expenses where user_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+
+            System.out.println("\n--- Your Fixed Expenses ---");
+            boolean found = false;
+            while (rs.next()) {
+                found = true;
+                System.out.println("- " + rs.getString("title") + ": Rs. " + rs.getDouble("amount"));
+            }
+            if (!found) System.out.println("No fixed expenses added yet.");
+        } catch (Exception e) {
+            System.out.println("Error viewing fixed expenses!");
+        }
+    }
+
+    private void deleteFixedExpense(User user) {
+        try {
+            viewFixedExpenses(user);
+            System.out.print("\nEnter the exact name of the expense to delete: ");
+            String title = sc.nextLine();
+
+            Connection con = DBConnection.getConnection();
+            
+            // 1. Get the amount before deleting
+            String selectQuery = "select amount from bb_fixed_expenses where user_id=? and title=?";
+            PreparedStatement selectPs = con.prepareStatement(selectQuery);
+            selectPs.setInt(1, user.getId());
+            selectPs.setString(2, title);
+            ResultSet rs = selectPs.executeQuery();
+
+            if (rs.next()) {
+                double amount = rs.getDouble("amount");
+
+                // 2. Delete the record
+                String deleteQuery = "delete from bb_fixed_expenses where user_id=? and title=?";
+                PreparedStatement deletePs = con.prepareStatement(deleteQuery);
+                deletePs.setInt(1, user.getId());
+                deletePs.setString(2, title);
+                deletePs.executeUpdate();
+
+                // 3. Refund the balance
+                double newBalance = user.getBalance() + amount;
+                userService.updateBalance(user, newBalance);
+
+                System.out.println("Fixed expense deleted and Rs. " + amount + " refunded to balance!");
+            } else {
+                System.out.println("Expense not found!");
+            }
+        } catch (Exception e) {
+            System.out.println("Error deleting fixed expense!");
         }
     }
 
@@ -90,6 +178,94 @@ public class ExpenseService {
 
         } catch (Exception e) {
             System.out.println("Error adding fixed expense!");
+        }
+    }
+
+    public void showDailyExpenseMenu(User user) {
+        while (true) {
+            System.out.println("\n===== MANAGE DAILY EXPENSES =====");
+            System.out.println("1. Add New Daily Expense");
+            System.out.println("2. View Daily Expenses");
+            System.out.println("3. Delete Daily Expense");
+            System.out.println("4. Back");
+            System.out.print("\nPlease select an option (1-4): ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addDailyExpense(user);
+                    break;
+                case 2:
+                    viewDailyExpenses(user);
+                    break;
+                case 3:
+                    deleteDailyExpense(user);
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private void viewDailyExpenses(User user) {
+        try {
+            Connection con = DBConnection.getConnection();
+            String query = "select * from bb_daily_expenses where user_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, user.getId());
+            ResultSet rs = ps.executeQuery();
+
+            System.out.println("\n--- Your Daily Expenses ---");
+            boolean found = false;
+            while (rs.next()) {
+                found = true;
+                System.out.println("- " + rs.getString("category") + ": Rs. " + rs.getDouble("amount"));
+            }
+            if (!found) System.out.println("No daily expenses added yet.");
+        } catch (Exception e) {
+            System.out.println("Error viewing daily expenses!");
+        }
+    }
+
+    private void deleteDailyExpense(User user) {
+        try {
+            viewDailyExpenses(user);
+            System.out.print("\nEnter the exact category of the expense to delete: ");
+            String category = sc.nextLine();
+
+            Connection con = DBConnection.getConnection();
+            
+            // 1. Get the amount before deleting
+            String selectQuery = "select amount from bb_daily_expenses where user_id=? and category=?";
+            PreparedStatement selectPs = con.prepareStatement(selectQuery);
+            selectPs.setInt(1, user.getId());
+            selectPs.setString(2, category);
+            ResultSet rs = selectPs.executeQuery();
+
+            if (rs.next()) {
+                double amount = rs.getDouble("amount");
+
+                // 2. Delete the record
+                String deleteQuery = "delete from bb_daily_expenses where user_id=? and category=?";
+                PreparedStatement deletePs = con.prepareStatement(deleteQuery);
+                deletePs.setInt(1, user.getId());
+                deletePs.setString(2, category);
+                deletePs.executeUpdate();
+
+                // 3. Refund the balance
+                double newBalance = user.getBalance() + amount;
+                userService.updateBalance(user, newBalance);
+
+                System.out.println("Daily expense deleted and Rs. " + amount + " refunded to balance!");
+            } else {
+                System.out.println("Expense not found!");
+            }
+        } catch (Exception e) {
+            System.out.println("Error deleting daily expense!");
         }
     }
 

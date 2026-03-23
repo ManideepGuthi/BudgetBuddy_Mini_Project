@@ -12,12 +12,26 @@ public class MainApp {
         GoalService goalService = new GoalService();
 
         while (true) {
-            System.out.println("***************************************************");
-            System.out.println("*                                                 *");
-            System.out.println("*       💰 WELCOME TO BUDGET BUDDY 💰            *");
-            System.out.println("*       \"Your Smart Finance Companion\"            *");
-            System.out.println("*                                                 *");
-            System.out.println("***************************************************");
+            System.out.println(
+                    "  _______________________________________________________________________________________________________  ");
+            System.out.println(
+                    " |                                                                                                       | ");
+            System.out.println(
+                    " |   ██████╗ ██╗   ██╗██████╗  ██████╗ ███████╗████████╗    ██████╗ ██╗   ██╗██████╗ ██████╗ ██╗   ██╗   | ");
+            System.out.println(
+                    " |   ██╔══██╗██║   ██║██╔══██╗██╔════╝ ██╔════╝╚══██╔══╝    ██╔══██╗██║   ██║██║  ██╗██║  ██╗╚██╗ ██╔╝   | ");
+            System.out.println(
+                    " |   ██████╔╝██║   ██║██║  ██║██║  ███╗█████╗     ██║       ██████╔╝██║   ██║██║  ██║██║  ██║ ╚████╔╝    | ");
+            System.out.println(
+                    " |   ██╔══██╗██║   ██║██║  ██║██║   ██║██╔══╝     ██║       ██╔══██╗██║   ██║██║  ██║██║  ██║  ╚██╔╝     | ");
+            System.out.println(
+                    " |   ██████╔╝╚██████╔╝██████╔╝╚██████╔╝███████╗   ██║       ██████╔╝╚██████╔╝██████╔╝██████╔╝   ██║      | ");
+            System.out.println(
+                    " |   ╚═════╝  ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝       ╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝      | ");
+            System.out.println(
+                    " |_______________________________________________________________________________________________________| ");
+            System.out.println(
+                    "                         >>>  THE SMART FINANCE COMPANION  <<<                                 ");
             System.out.println("1. Register  (New user)");
             System.out.println("2. Login     (Existing user)");
             System.out.println("3. Exit      (Close application)");
@@ -94,4 +108,4 @@ public class MainApp {
             }
         }
     }
-}
+}
