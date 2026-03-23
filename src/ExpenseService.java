@@ -76,7 +76,9 @@ public class ExpenseService {
             boolean found = false;
             while (rs.next()) {
                 found = true;
-                System.out.println("- " + rs.getString("title") + ": Rs. " + rs.getDouble("amount"));
+                // Demonstrating OOP: Creating a specific FixedExpense object
+                FixedExpense fe = new FixedExpense(rs.getInt("id"), rs.getInt("user_id"), rs.getString("title"), rs.getDouble("amount"));
+                fe.displayDetails(); // Calling overridden method (Polymorphism)
             }
             if (!found) System.out.println("No fixed expenses added yet.");
         } catch (Exception e) {
@@ -223,7 +225,9 @@ public class ExpenseService {
             boolean found = false;
             while (rs.next()) {
                 found = true;
-                System.out.println("- " + rs.getString("category") + ": Rs. " + rs.getDouble("amount"));
+                // Demonstrating OOP: Creating a specific DailyExpense object
+                DailyExpense de = new DailyExpense(rs.getInt("id"), rs.getInt("user_id"), rs.getString("category"), rs.getDouble("amount"));
+                de.displayDetails(); // Calling overridden method (Polymorphism)
             }
             if (!found) System.out.println("No daily expenses added yet.");
         } catch (Exception e) {
