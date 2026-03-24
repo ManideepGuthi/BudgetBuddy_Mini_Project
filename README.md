@@ -1,10 +1,11 @@
 # BudgetBuddy (Simple) 💸
 
-`BudgetBuddy_Simple` is a feature-rich Java application for personal finance management. It helps users track income, manage recurring and daily expenses, set financial goals, and gain insights through smart analysis—all within a premium, console-based terminal interface.
+`BudgetBuddy_Simple` is a Java application for personal finance management. It helps users track income, manage recurring and daily expenses, set financial goals, and gain insights through smart analysis, console-based terminal interface.
+
+
 
 ## 🚀 Key Features
 
-- **Premium Interface**: Professional ASCII art banners and clean, structured menus for a state-of-the-art console experience.
 - **User Authentication**: Secure registration and login with salary management.
 - **Consolidated Expense Tracking**: Manage both **Fixed Expenses** (Rent, EMI, Bills) and **Daily Expenses** (Groceries, Entertainment, Transport) from a single hub.
 - **Expense Management**: View and Delete logged expenses. Deleting an expense automatically **refunds** the amount back to your balance!
@@ -12,6 +13,9 @@
 - **Platform Spending**: Explore products from Food, Ride (with fare calculation), and Shopping platforms, seamlessly integrated into your budget.
 - **Smart Analysis**: Visual text-based bar charts and personalized financial advice based on your spending patterns.
 - **Account Settings**: Update profile, change passwords, and perform monthly resets while preserving critical data.
+
+
+
 
 ## 🧩 Advanced OOP Concepts
 
@@ -35,6 +39,8 @@ Data integrity is maintained by restricting direct access to fields.
 
 ### 4. Modular Design
 The application is organized into separate **Service** classes (e.g., `GoalService`, `AnalysisService`), each responsible for a single functional area, following the **Single Responsibility Principle**.
+
+
 
 ## 🛠️ Tech Stack
 - **Language**: Java
