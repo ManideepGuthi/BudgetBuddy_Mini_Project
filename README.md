@@ -48,4 +48,4 @@ The application is organized into separate **Service** classes (e.g., `GoalServi
 - **Driver**: JDBC (MySQL Connector/J)
 
 ---
-*Created with ❤️ by Manu*
+*Created with ❤️ by Manu, Yashaswini, Deepika, Ganesh, Prasanna, Krishna*
